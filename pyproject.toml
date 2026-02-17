@@ -24,7 +24,7 @@ dev = [
 ]
 
 [project.scripts]
-run-my-package = "my_package:main"
+run-my-package = "my_package.main:main"
 
 [project.urls]
 Homepage = "https://github.com/my-username/my-package"
