@@ -5,6 +5,9 @@ build-backend = "hatchling.build"
 [project]
 name = "my-package"
 version = "0.1.0"
+authors = [
+  { name = "Yaron Koresh" },
+]
 description = "Example Package"
 readme = "README.md"
 license = {text = "MIT"}
