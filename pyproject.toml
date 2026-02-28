@@ -197,7 +197,7 @@ version = "0.1.0"
 url = "https://github.com/my-username/my-package"
 license = "MIT"
 
-[tool.briefcase.app."my-package]
+[tool.briefcase.app.my-package]
 formal_name = "My Package"
 description = "Example Package"
 long_description = "An example for python packages"
