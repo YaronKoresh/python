@@ -99,7 +99,7 @@ for p in pathlib.Path('.').rglob('*'):
         elif p.name in targets['files'] or any(p.match(pat) for pat in targets['files']):
             if p.is_file(): p.unlink(missing_ok=True)
 "''' }
-dead-code = { cmd = "vulture src/korshmer --min-confidence 80 --sort-by-size" }
+dead-code = { cmd = "vulture src/ --min-confidence 80 --sort-by-size" }
 strip-comments = { cmd = '''python -c "
 import ast
 import tokenize

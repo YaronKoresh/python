@@ -139,7 +139,7 @@ echo ===========================================================
 echo            S A V E   A N D   U P L O A D
 echo ===========================================================
 echo.
-echo  This will mark all changes, create a save point, 
+echo  This will mark all changes, create a save point,
 echo  get latest team updates, and upload your work.
 echo.
 
@@ -183,8 +183,8 @@ call git push origin "!CURRENT_BRANCH!" -u
 
 if errorlevel 1 (
     echo.
-    echo  Upload failed. 
-    echo  This usually happens if someone else pushed changes 
+    echo  Upload failed.
+    echo  This usually happens if someone else pushed changes
     echo  while you were working. Try the Update action first.
 ) else (
     echo.
@@ -202,7 +202,7 @@ echo ===========================================================
 echo            G E T   L A T E S T   U P D A T E S
 echo ===========================================================
 echo.
-echo  This will check for team updates and download them 
+echo  This will check for team updates and download them
 echo  into your current work area.
 echo.
 
@@ -229,8 +229,8 @@ for /f "delims=" %%i in ('git status --porcelain') do set "HAS_CHANGES=1"
 
 if defined HAS_CHANGES (
     echo.
-    echo  Notice: You have unsaved changes. 
-    echo  Git may refuse to update if these changes overlap 
+    echo  Notice: You have unsaved changes.
+    echo  Git may refuse to update if these changes overlap
     echo  with the team updates.
     echo.
 )
@@ -393,13 +393,13 @@ set "QFIN_CLEANUP="
 set /p "QFIN_CLEANUP= Delete the task branch !FEATURE_BRANCH!? Y or N: "
 
 if /I "!QFIN_CLEANUP!"=="Y" (
-    
+
     echo Removing cloud !FEATURE_BRANCH! branch...
     call git push origin --delete "!FEATURE_BRANCH!" 2>nul
 
     echo Removing local !FEATURE_BRANCH! branch...
     call git branch -d "!FEATURE_BRANCH!"
-    
+
     echo.
     echo Cleanup complete.
 ) else (
@@ -447,7 +447,7 @@ echo ===========================================================
 echo             W I P E   A L L   C H A N G E S
 echo ===========================================================
 echo.
-echo  This will permanently delete all work you have done 
+echo  This will permanently delete all work you have done
 echo  since your last save point.
 echo.
 echo  Files to be reset or deleted:
@@ -460,13 +460,13 @@ set /p "QUNDO_CONFIRM= This action is permanent. Erase everything? Y or N: "
 if /I "!QUNDO_CONFIRM!"=="Y" (
     echo.
     echo  Cleaning up work area...
-    
+
     :: Restore tracked files
     call git restore . 2>nul || call git checkout . 2>nul
-    
+
     :: Remove new untracked files and folders
     call git clean -fd
-    
+
     echo.
     echo  Done. Your project is back to how it was at your last save.
 ) else (
@@ -618,7 +618,7 @@ echo ===========================================================
 echo             D O W N L O A D   P R O J E C T
 echo ===========================================================
 echo.
-echo  This will download a complete copy of a project 
+echo  This will download a complete copy of a project
 echo  from a cloud link (URL) to your computer.
 echo.
 
@@ -647,7 +647,7 @@ if "!QDLDIR!"=="" (
 
 if errorlevel 1 (
     echo.
-    echo  Download failed. 
+    echo  Download failed.
     echo  Check the URL and your internet connection.
 ) else (
     echo.
@@ -720,7 +720,7 @@ goto CatQuick
 
 :DoUndoErase
 echo.
-echo  WARNING: This will permanently erase the save point 
+echo  WARNING: This will permanently erase the save point
 echo  from your project history.
 echo.
 set "QUC_CONFIRM="
@@ -772,7 +772,7 @@ call git commit -m "!QSAVE_MSG!"
 
 echo.
 echo  Done. !QUC_FILE! has been removed from the save point.
-echo  The file still exists on your computer, but it is no 
+echo  The file still exists on your computer, but it is no
 echo  longer included in that specific save.
 echo.
 
@@ -981,7 +981,7 @@ echo ===========================================================
 echo            T E S T   A   P U L L   R E Q U E S T
 echo ===========================================================
 echo.
-echo  This will download a teammate's pull request so you can 
+echo  This will download a teammate's pull request so you can
 echo  test their changes on your computer.
 echo.
 
@@ -1001,7 +1001,7 @@ call git fetch origin pull/!QTPR_NUM!/head:pr-!QTPR_NUM!
 if errorlevel 1 (
     echo.
     echo  Could not download PR !QTPR_NUM!.
-    echo  Check that the number is correct and that the 
+    echo  Check that the number is correct and that the
     echo  project is hosted on GitHub.
     echo.
     pause
@@ -1332,7 +1332,7 @@ echo ===========================================================
 echo                        B R A N C H E S
 echo ===========================================================
 echo.
-echo  A branch is a parallel copy of your project where you can 
+echo  A branch is a parallel copy of your project where you can
 echo  work safely without affecting the main version.
 echo.
 echo  [1]  List Branches - Show all local and cloud branches
@@ -1452,8 +1452,8 @@ call git checkout "!SW_BR!"
 
 if errorlevel 1 (
     echo.
-    echo  Switch failed. 
-    echo  You likely have unsaved changes that would be 
+    echo  Switch failed.
+    echo  You likely have unsaved changes that would be
     echo  overwritten. Save or Undo your work first.
 )
 
@@ -1497,7 +1497,7 @@ echo  Step 3 of 3 - Uploading the new name to the cloud...
 call git push origin -u "!CURRENT_BRANCH!"
 
 echo.
-echo  Success. The branch is now named !CURRENT_BRANCH! 
+echo  Success. The branch is now named !CURRENT_BRANCH!
 echo  on both your computer and the cloud server.
 echo.
 pause
@@ -1537,7 +1537,7 @@ if /I "!FORCE_DEL!"=="Y" (
 
 if errorlevel 1 (
     echo.
-    echo  The branch was not deleted. This usually happens if 
+    echo  The branch was not deleted. This usually happens if
     echo  it has work that hasn't been merged into main yet.
     pause
     goto CatBranch
@@ -1587,7 +1587,7 @@ call git checkout --track "!TRACK_BR!"
 
 if errorlevel 1 (
     echo.
-    echo  Failed to track branch. 
+    echo  Failed to track branch.
     echo  Make sure you typed the name exactly as shown above.
 )
 
@@ -1641,7 +1641,7 @@ echo ===========================================================
 echo            S A F E   T O   D E L E T E
 echo ===========================================================
 echo.
-echo  These branches have already been combined into your 
+echo  These branches have already been combined into your
 echo  current work area and are safe to remove.
 echo.
 
@@ -1658,7 +1658,7 @@ echo ===========================================================
 echo            A C T I V E   W O R K
 echo ===========================================================
 echo.
-echo  These branches contain changes that have NOT been 
+echo  These branches contain changes that have NOT been
 echo  combined into your current branch yet.
 echo.
 
@@ -1677,7 +1677,7 @@ echo ===========================================================
 echo            D E L E T E   C L O U D   B R A N C H
 echo ===========================================================
 echo.
-echo  This removes a branch from the cloud server. 
+echo  This removes a branch from the cloud server.
 echo  Teammates will no longer see this branch.
 echo.
 echo  Cloud branches:
@@ -1707,10 +1707,10 @@ if /I "!RDBR_CONFIRM!"=="Y" (
     echo.
     echo  Removing branch from the cloud...
     call git push "!RDBR_REMOTE!" --delete "!RDBR_NAME!"
-    
+
     if errorlevel 1 (
         echo.
-        echo  Failed to delete. The branch may already be gone 
+        echo  Failed to delete. The branch may already be gone
         echo  or you might not have permission to delete it.
     ) else (
         echo.
@@ -1853,7 +1853,7 @@ echo  Unmarking !UNSTAGE_F!...
 call git restore --staged "!UNSTAGE_F!" 2>nul || call git reset HEAD "!UNSTAGE_F!" 2>nul
 
 echo.
-echo  Done. The file has been unmarked. 
+echo  Done. The file has been unmarked.
 echo  Your work is still on your computer, just not in the next save.
 echo.
 pause
@@ -1885,7 +1885,7 @@ call git commit -m "!COMMIT_MSG!"
 
 if errorlevel 1 (
     echo.
-    echo  Save failed. Make sure you have marked (staged) 
+    echo  Save failed. Make sure you have marked (staged)
     echo  your files first.
 ) else (
     echo.
@@ -1963,7 +1963,7 @@ echo ===========================================================
 echo             R E T R I E V E   W O R K
 echo ===========================================================
 echo.
-echo  This takes work off your shelf and puts it back 
+echo  This takes work off your shelf and puts it back
 echo  into your project.
 echo.
 echo  Available items on shelf:
@@ -1984,8 +1984,8 @@ if "!STASH_IDX!"=="" (
 
 if errorlevel 1 (
     echo.
-    echo  Could not retrieve work. 
-    echo  This usually happens if your current project files 
+    echo  Could not retrieve work.
+    echo  This usually happens if your current project files
     echo  conflict with the work on the shelf.
 )
 
@@ -2223,10 +2223,10 @@ if /I "!DALL_CONFIRM!"=="Y" (
     echo.
     echo  Step 1 of 2 - Restoring modified files...
     call git restore .
-    
+
     echo  Step 2 of 2 - Removing new untracked files...
     call git clean -fd
-    
+
     echo.
     echo  Success. All local changes have been wiped.
 ) else (
@@ -2339,8 +2339,8 @@ if /I not "!FORCE_PUSH!"=="Y" (
 
 echo.
 echo  ####################  DANGER  ####################
-echo  This will OVERWRITE the cloud project with your 
-echo  local version. Any work on the cloud that you 
+echo  This will OVERWRITE the cloud project with your
+echo  local version. Any work on the cloud that you
 echo  do not have on your computer will be DELETED.
 echo  ##################################################
 echo.
@@ -2386,7 +2386,7 @@ if not defined FORCE_FLAG (
         echo.
         echo  Checking for cloud updates before uploading...
         call git pull origin "!TARGET_BRANCH!" --no-rebase
-        
+
         if errorlevel 1 (
             echo.
             echo  -----------------------------------------------------------
@@ -2394,10 +2394,10 @@ if not defined FORCE_FLAG (
             echo  We must merge their work into yours before you can upload.
             echo  -----------------------------------------------------------
             pause
-            
+
             :: Launch your Conflict Resolution Tool
             call :ResolveConflicts
-            
+
             :: Check if the conflict was actually resolved or if they aborted
             call git status --porcelain | findstr "^UU ^AA ^DU ^UD" >nul
             if not errorlevel 1 (
@@ -2418,7 +2418,7 @@ call git push origin "!TARGET_BRANCH!" !FORCE_FLAG! !PUBLISH_FLAG! !NO_VERIFY!
 
 if errorlevel 1 (
     echo.
-    echo  Upload failed. 
+    echo  Upload failed.
     echo  If this was not a conflict, check your internet connection
     echo  or your permissions for this repository.
 ) else (
@@ -2437,7 +2437,7 @@ echo ===========================================================
 echo             U P D A T E   P R O J E C T   (PULL)
 echo ===========================================================
 echo.
-echo  This downloads the latest changes from the cloud and 
+echo  This downloads the latest changes from the cloud and
 echo  combines them with your local work.
 echo.
 
@@ -2454,7 +2454,7 @@ echo.
 :: Check if there are local changes that might block the pull
 call git diff --quiet
 if errorlevel 1 (
-    echo  Warning: You have unsaved changes. 
+    echo  Warning: You have unsaved changes.
     echo  If the cloud has changed the same files, the update may fail.
     echo.
     set "SAVE_FIRST="
@@ -2473,7 +2473,7 @@ call git pull origin "!PULL_BR!" --no-rebase
 
 if errorlevel 1 (
     echo.
-    echo  Update stopped. There is a conflict between your 
+    echo  Update stopped. There is a conflict between your
     echo  work and the cloud version.
     echo.
     pause
@@ -2494,14 +2494,14 @@ echo ===========================================================
 echo             C H E C K   F O R   U P D A T E S
 echo ===========================================================
 echo.
-echo  This asks the cloud if there are any new changes, 
+echo  This asks the cloud if there are any new changes,
 echo  but it does NOT change your files yet.
 echo.
 
 call git fetch --all
 
 echo.
-echo  Check complete. You can now see what others have done 
+echo  Check complete. You can now see what others have done
 echo  without affecting your current work.
 echo.
 pause
@@ -2681,7 +2681,7 @@ echo ===========================================================
 echo            C L E A N   S T A L E   L I N K S
 echo ===========================================================
 echo.
-echo  This removes "ghost" branches from your list that were 
+echo  This removes "ghost" branches from your list that were
 echo  already deleted from the cloud by your teammates.
 echo.
 
@@ -2706,7 +2706,7 @@ echo          U P L O A D   A L L   B R A N C H E S
 echo ===========================================================
 echo.
 echo  This sends every branch on your computer to the cloud.
-echo  It is a great way to ensure your entire project is 
+echo  It is a great way to ensure your entire project is
 echo  backed up and synced.
 echo.
 
@@ -2719,7 +2719,7 @@ call git push "!PALL_REM!" --all
 
 if errorlevel 1 (
     echo.
-    echo  Upload failed. Check your internet connection or 
+    echo  Upload failed. Check your internet connection or
     echo  permissions for this repository.
 ) else (
     echo.
@@ -2816,7 +2816,7 @@ echo ===========================================================
 echo             D E T A I L E D   H I S T O R Y
 echo ===========================================================
 echo.
-echo  This view shows who made each save point, the date, 
+echo  This view shows who made each save point, the date,
 echo  and the full description.
 echo.
 
@@ -2908,10 +2908,10 @@ if "!DIFF_CH!"=="3" (
     set /p "DIFF_A= Enter the name of the first branch: "
     set "DIFF_B="
     set /p "DIFF_B= Enter the name of the second branch: "
-    
+
     if "!DIFF_A!"=="" goto :DiffError
     if "!DIFF_B!"=="" goto :DiffError
-    
+
     echo.
     echo  Comparing !DIFF_A! against !DIFF_B!...
     echo  Note: Press 'Q' to exit the view.
@@ -3073,7 +3073,7 @@ echo             T I M E   M A C H I N E   (REFLOG)
 echo ===========================================================
 echo.
 echo  This is a master record of every move you have made.
-echo  Even if you deleted a branch or made a mistake, you can 
+echo  Even if you deleted a branch or made a mistake, you can
 echo  usually find the "lost" version here.
 echo.
 
@@ -3102,7 +3102,7 @@ echo ===========================================================
 echo             P R O J E C T   C O N T R I B U T O R S
 echo ===========================================================
 echo.
-echo  This list shows everyone who has contributed to this 
+echo  This list shows everyone who has contributed to this
 echo  project and how many save points they have created.
 echo.
 echo  Rank  ^|  Name and Email
@@ -3122,7 +3122,7 @@ echo ===========================================================
 echo          V I E W   F I L E   F R O M   P A S T
 echo ===========================================================
 echo.
-echo  This lets you see what a specific file looked like at 
+echo  This lets you see what a specific file looked like at
 echo  any point in your project's history.
 echo.
 
@@ -3218,7 +3218,7 @@ echo ===========================================================
 echo            W H A T   G I T   I S   W A T C H I N G
 echo ===========================================================
 echo.
-echo  This is a master list of every file currently being 
+echo  This is a master list of every file currently being
 echo  tracked and protected by your project's history.
 echo.
 
@@ -3226,7 +3226,7 @@ call git ls-files
 
 echo.
 echo -----------------------------------------------------------
-echo  Note: Files in your folder but not on this list are 
+echo  Note: Files in your folder but not on this list are
 echo  untracked (ignored) by Git.
 echo.
 pause
@@ -3239,7 +3239,7 @@ echo ===========================================================
 echo             S A V E   P O I N T   I M P A C T
 echo ===========================================================
 echo.
-echo  This shows exactly how many lines were added or removed 
+echo  This shows exactly how many lines were added or removed
 echo  in each of your recent save points.
 echo.
 
@@ -3432,7 +3432,7 @@ if /I "!BR_CLEANUP!"=="Y" (
 
     echo Removing cloud !SOURCE_BR! branch...
     call git push origin --delete "!SOURCE_BR!" 2>nul
-    
+
     echo Removing local !SOURCE_BR! branch...
     call git branch -d "!SOURCE_BR!"
 
@@ -3459,7 +3459,7 @@ echo.
 for /f "delims=" %%I in ('git rev-parse --abbrev-ref HEAD 2^>nul') do set "CURRENT_BRANCH=%%I"
 echo  Target: Moving your current work on '!CURRENT_BRANCH!'
 echo.
-echo  Rebasing is a way to "clean up" your timeline so it looks 
+echo  Rebasing is a way to "clean up" your timeline so it looks
 echo  like you started your work on the very latest version.
 echo.
 
@@ -3490,8 +3490,8 @@ if /I "!REBASE_STATUS!"=="PRIVATE" (
     echo  Confirmed. Starting relocation onto !REBASE_BR!...
 ) else (
     echo.
-    echo  Action Cancelled. 
-    echo  Since your work is already out there, 'Merge' is the 
+    echo  Action Cancelled.
+    echo  Since your work is already out there, 'Merge' is the
     echo  proper way to combine changes without breaking the project.
     pause
     goto CatMerge
@@ -3528,7 +3528,7 @@ for /f "delims=" %%I in ('git rev-parse --abbrev-ref HEAD 2^>nul') do set "CURRE
 echo  You are currently standing on: !CURRENT_BRANCH!
 echo.
 echo  This type of merge creates a permanent "Merge Point" in your
-echo  history, making it easy to see exactly when a feature was 
+echo  history, making it easy to see exactly when a feature was
 echo  finished and added to the main project.
 echo.
 
@@ -3631,14 +3631,14 @@ if /I "!ABORT_CHOICE!"=="X" goto CatMerge
 
 if defined OPT_!ABORT_CHOICE! (
     set "ACTION=!OPT_%ABORT_CHOICE%!"
-    
+
     if "!ACTION!"=="MERGE" (
         echo.
         echo  Cancelling Merge...
         call git merge --abort
         echo  Done. Your files have been reset to before the merge started.
     )
-    
+
     if "!ACTION!"=="REBASE" (
         echo.
         echo  Cancelling Rebase...
@@ -3694,8 +3694,8 @@ call git !RESUME_CMD! --no-edit
 
 if errorlevel 1 (
     echo.
-    echo  The resume failed. This sometimes happens if there are 
-    echo  more overlaps in the next set of changes. 
+    echo  The resume failed. This sometimes happens if there are
+    echo  more overlaps in the next set of changes.
     echo  Check the menu again for new conflicting files.
 ) else (
     echo.
@@ -3713,7 +3713,7 @@ echo ===========================================================
 echo            G R A B   A   S A V E   P O I N T
 echo ===========================================================
 echo.
-echo  Cherry-picking lets you copy one specific change from 
+echo  Cherry-picking lets you copy one specific change from
 echo  another branch without merging everything.
 echo.
 echo  Recent History (Across all branches):
@@ -3757,7 +3757,7 @@ echo ===========================================================
 echo             C L E A N   U P   H I S T O R Y
 echo ===========================================================
 echo.
-echo  Squashing combines several small save points into one 
+echo  Squashing combines several small save points into one
 echo  single, clean description. Great for hiding "Oops" saves.
 echo.
 echo  Recent History:
@@ -3786,7 +3786,7 @@ set /p "SQ_STATUS= Type your status (PRIVATE or PUBLISHED): "
 
 if /I not "!SQ_STATUS!"=="PRIVATE" (
     echo.
-    echo  Cancelled. You should not squash saves that are 
+    echo  Cancelled. You should not squash saves that are
     echo  already on the cloud, as it will break sync for others.
     pause
     goto CatMerge
@@ -3828,7 +3828,7 @@ echo -----------------------------------------------------------
 call git log --all -15 --oneline
 echo -----------------------------------------------------------
 echo.
-echo  NOTE: To include the very first save point in your range, 
+echo  NOTE: To include the very first save point in your range,
 echo  select the ID of the save IMMEDIATELY BEFORE it.
 echo.
 
@@ -3872,10 +3872,10 @@ echo ===========================================================
 echo          C A N C E L   C O P Y   (ABORT)
 echo ===========================================================
 echo.
-echo  Use this if the cherry-pick is too complex or you 
-echo  selected the wrong range. 
+echo  Use this if the cherry-pick is too complex or you
+echo  selected the wrong range.
 echo.
-echo  Your project will return to how it was before you 
+echo  Your project will return to how it was before you
 echo  tried to copy these changes.
 echo.
 
@@ -3953,7 +3953,7 @@ echo  Un-saving !SR_COMMIT!...
 call git reset --soft !SR_COMMIT!~1
 
 echo.
-echo  Success. The save point is gone, but your work is still 
+echo  Success. The save point is gone, but your work is still
 echo  here. You can find your files in the 'Waiting Area'.
 echo.
 
@@ -3981,7 +3981,7 @@ if "!HR_COMMIT!"=="" set "HR_COMMIT=HEAD"
 
 echo.
 echo  ===== DANGER =====
-echo  This will PERMANENTLY DELETE the work inside 
+echo  This will PERMANENTLY DELETE the work inside
 echo  this save point and any unsaved changes.
 echo  You cannot "Undo" this delete easily.
 echo.
@@ -4017,8 +4017,8 @@ echo ===========================================================
 echo            R E V E R S E   A   S A V E   (SAFE)
 echo ===========================================================
 echo.
-echo  This creates a NEW save point that does the exact opposite 
-echo  of an old one. It is the SAFEST way to undo changes that 
+echo  This creates a NEW save point that does the exact opposite
+echo  of an old one. It is the SAFEST way to undo changes that
 echo  you have already shared with a team.
 echo.
 echo  Recent History:
@@ -4041,7 +4041,7 @@ call git revert "!REV_SHA!" --no-edit
 
 if errorlevel 1 (
     echo.
-    echo  Note: If this failed, it is likely because newer changes 
+    echo  Note: If this failed, it is likely because newer changes
     echo  depend on the code you are trying to reverse.
 ) else (
     echo.
@@ -4059,8 +4059,8 @@ echo ===========================================================
 echo            T R A V E L   B A C K   I N   T I M E
 echo ===========================================================
 echo.
-echo  This jumps your entire project back to a specific point 
-echo  in history. 
+echo  This jumps your entire project back to a specific point
+echo  in history.
 echo.
 echo  Recent History:
 call git log -10 --oneline
@@ -4120,7 +4120,7 @@ echo ===========================================================
 echo             C L E A N U P   T E S T   F I L E S
 echo ===========================================================
 echo.
-echo  This removes files that are NOT being tracked by Git 
+echo  This removes files that are NOT being tracked by Git
 echo  (like temporary notes, test logs, or build files).
 echo.
 echo  Searching for untracked items...
@@ -4187,7 +4187,7 @@ echo ===========================================================
 echo            A D D   M I S S I N G   F I L E S
 echo ===========================================================
 echo.
-echo  Did you forget to include a file in your last save? 
+echo  Did you forget to include a file in your last save?
 echo  This "sneaks" it in without creating a new save point.
 echo.
 echo  Current Last Save:
@@ -4279,7 +4279,7 @@ echo            E M E R G E N C Y   R E C O V E R Y
 echo ===========================================================
 echo.
 echo  This is your "Safety Net." Even if you deleted a branch
-echo  or did a 'Hard Undo', Git keeps a secret log of where 
+echo  or did a 'Hard Undo', Git keeps a secret log of where
 echo  you have been for the last 30 days.
 echo.
 echo  Recent Movements (Look for the IDs on the left):
@@ -4311,7 +4311,7 @@ if "!RREC_MODE!"=="1" (
     set "RREC_BR="
     set /p "RREC_BR= Enter a name for the new 'Rescue' branch: "
     if "!RREC_BR!"=="" set "RREC_BR=rescued-work"
-    
+
     echo  Creating branch and switching you over...
     call git checkout -b "!RREC_BR!" "!RREC_SHA!"
     echo.
@@ -4376,7 +4376,7 @@ echo ===========================================================
 echo             P R O J E C T   M I L E S T O N E S
 echo ===========================================================
 echo.
-echo  These are the important version labels (like v1.0) 
+echo  These are the important version labels (like v1.0)
 echo  you have placed on your project's history.
 echo.
 echo  Current Tags:
@@ -4424,7 +4424,7 @@ echo ===========================================================
 echo          O F F I C I A L   R E L E A S E   (HEAVY)
 echo ===========================================================
 echo.
-echo  Use this for major milestones. It stores the date, 
+echo  Use this for major milestones. It stores the date,
 echo  your name, and a specific release message.
 echo.
 
@@ -4456,7 +4456,7 @@ echo ===========================================================
 echo            R E M O V E   L O C A L   L A B E L
 echo ===========================================================
 echo.
-echo  This deletes the version name from your computer. 
+echo  This deletes the version name from your computer.
 echo  It does NOT delete the code inside that version.
 echo.
 echo  Current Local Versions:
@@ -4547,7 +4547,7 @@ echo            D E L E T E   F R O M   T H E   C L O U D
 echo ===========================================================
 echo.
 echo  This removes a version label from the Cloud (GitHub).
-echo  Use this if you uploaded a version by mistake or 
+echo  Use this if you uploaded a version by mistake or
 echo  if you need to rename a release.
 echo.
 
@@ -4614,7 +4614,7 @@ echo ===========================================================
 echo          L A B E L   A   P A S T   V E R S I O N
 echo ===========================================================
 echo.
-echo  Forgot to tag a release? You can pick any save point 
+echo  Forgot to tag a release? You can pick any save point
 echo   from your history and give it a version name now.
 echo.
 echo  Recent History:
@@ -4699,7 +4699,7 @@ echo ===========================================================
 echo            L I N K   E X T E R N A L   P R O J E C T
 echo ===========================================================
 echo.
-echo  This "plugs in" another Git project as a folder inside 
+echo  This "plugs in" another Git project as a folder inside
 echo  your own. Perfect for shared libraries or tools.
 echo.
 
@@ -4732,8 +4732,8 @@ echo ===========================================================
 echo           W A K E   U P   S U B M O D U L E S
 echo ===========================================================
 echo.
-echo  Just downloaded this project? Submodule folders often 
-echo  start out empty. This "wakes them up" and gets them 
+echo  Just downloaded this project? Submodule folders often
+echo  start out empty. This "wakes them up" and gets them
 echo  ready to download their contents.
 echo.
 
@@ -4807,7 +4807,7 @@ echo            U N L I N K   S U B M O D U L E
 echo ===========================================================
 echo.
 echo  This "unplugs" the external project from your folder.
-echo  The files will be removed, but the link remains in 
+echo  The files will be removed, but the link remains in
 echo  your project history so you can "Plug it in" later.
 echo.
 echo  Current Links:
@@ -4845,8 +4845,8 @@ echo ===========================================================
 echo          R E P A I R   C O N N E C T I O N S
 echo ===========================================================
 echo.
-echo  Use this if an external project changed its web address 
-echo  (URL). It updates your local settings to match the 
+echo  Use this if an external project changed its web address
+echo  (URL). It updates your local settings to match the
 echo  latest project configuration.
 echo.
 
@@ -4865,7 +4865,7 @@ echo ===========================================================
 echo          D O W N L O A D   W I T H   L I N K S
 echo ===========================================================
 echo.
-echo  This downloads a project AND all of its external 
+echo  This downloads a project AND all of its external
 echo  linked sub-projects at the same time.
 echo.
 
@@ -4906,13 +4906,13 @@ echo  --- FIND ^& PORTABILITY ---          --- WORKSPACES (WORKTREE) ---
 echo  [1] Search Code (Grep)              [6] Multi-Task (New Folder)
 echo  [2] Find Bug (Bisect)               [7] List Active Folders
 echo  [3] Export (Zip/Tar)                [8] Close Extra Folder
-echo  [4] Create Patch File               
+echo  [4] Create Patch File
 echo  [5] Apply Patch File                --- MAINTENANCE ^& INFO ---
 echo                                      [9] Check if file is Ignored
 echo  --- SYSTEM ^& EXPERT ---             [10] Optimize (Clean Cache)
 echo  [13] Custom Command                 [11] Health Check (Fsck)
 echo  [14] View Exclusions                [12] Storage/Space Info
-echo  [15] View Shortcuts (Aliases)       
+echo  [15] View Shortcuts (Aliases)
 echo.
 echo -----------------------------------------------------------
 echo  [0] BACK TO MAIN MENU
@@ -4950,7 +4950,7 @@ echo ===========================================================
 echo             S E A R C H   I N   C O D E
 echo ===========================================================
 echo.
-echo  This quickly finds every line of code that contains 
+echo  This quickly finds every line of code that contains
 echo  your search term across your entire project.
 echo.
 
@@ -4995,7 +4995,7 @@ if "!BISECT_ACTIVE!"=="0" (
     echo  [0] CANCEL     - Go back
 ) else (
     echo  [ STATUS: HUNTING... ]
-    echo  Git has moved your files to a specific point in time. 
+    echo  Git has moved your files to a specific point in time.
     echo  Test your code now: Is the bug there?
     echo.
     echo  [2] STILL BROKEN   - The bug is still here
@@ -5046,7 +5046,7 @@ echo ===========================================================
 echo             P A C K A G E   P R O J E C T
 echo ===========================================================
 echo.
-echo  This creates a clean ZIP or TAR file of your project 
+echo  This creates a clean ZIP or TAR file of your project
 echo  without including the bulky '.git' history folder.
 echo  Perfect for sending your code to someone else.
 echo.
@@ -5077,7 +5077,7 @@ echo            E X P O R T   C H A N G E S   (PATCH)
 echo ===========================================================
 echo.
 echo  This creates a portable file containing your changes.
-echo  You can send this file to a teammate to "plug in" 
+echo  You can send this file to a teammate to "plug in"
 echo  your work without using a Cloud branch.
 echo.
 echo  Recent History:
@@ -5106,7 +5106,7 @@ echo ===========================================================
 echo            I M P O R T   C H A N G E S   (PATCH)
 echo ===========================================================
 echo.
-echo  This takes a '.patch' file sent by someone else and 
+echo  This takes a '.patch' file sent by someone else and
 echo  applies their changes to your current files.
 echo.
 
@@ -5144,7 +5144,7 @@ echo ===========================================================
 echo            O P E N   S E P A R A T E   F O L D E R
 echo ===========================================================
 echo.
-echo  This creates a NEW folder on your computer where you can 
+echo  This creates a NEW folder on your computer where you can
 echo  work on a DIFFERENT branch at the same time.
 echo.
 
@@ -5161,7 +5161,7 @@ echo  Creating separate workspace...
 call git worktree add "!WT_PATH!" "!WT_BR!"
 
 echo.
-echo  Success. You now have a second copy of your project 
+echo  Success. You now have a second copy of your project
 echo  at !WT_PATH! running the '!WT_BR!' branch.
 echo.
 pause
@@ -5174,7 +5174,7 @@ echo ===========================================================
 echo            A C T I V E   W O R K S P A C E S
 echo ===========================================================
 echo.
-echo  This shows all the folders currently linked to this 
+echo  This shows all the folders currently linked to this
 echo  project's history.
 echo.
 echo -----------------------------------------------------------
@@ -5192,7 +5192,7 @@ echo            C L O S E   W O R K S P A C E
 echo ===========================================================
 echo.
 echo  Finished with your separate folder? This unlinks it.
-echo  Note: This will not delete the files if they have 
+echo  Note: This will not delete the files if they have
 echo  unsaved changes.
 echo.
 echo  Current Workspaces:
@@ -5231,8 +5231,8 @@ echo ===========================================================
 echo            W H Y   I S   I T   I G N O R E D ?
 echo ===========================================================
 echo.
-echo  If a file isn't showing up in your saves, it might be 
-echo  blocked by your '.gitignore' file. Use this to find out 
+echo  If a file isn't showing up in your saves, it might be
+echo  blocked by your '.gitignore' file. Use this to find out
 echo  exactly which rule is stopping it.
 echo.
 
@@ -5268,8 +5268,8 @@ echo ===========================================================
 echo            O P T I M I Z E   P R O J E C T
 echo ===========================================================
 echo.
-echo  Is your project folder feeling slow or bulky? 
-echo  This "Garbage Collection" compresses your history 
+echo  Is your project folder feeling slow or bulky?
+echo  This "Garbage Collection" compresses your history
 echo  and cleans up temporary files to save space.
 echo.
 
@@ -5288,7 +5288,7 @@ echo ===========================================================
 echo             H E A L T H   C H E C K   (FSCK)
 echo ===========================================================
 echo.
-echo  This verifies that your project data isn't corrupted. 
+echo  This verifies that your project data isn't corrupted.
 echo  It checks every link in your history for integrity.
 echo.
 
@@ -5308,7 +5308,7 @@ echo ===========================================================
 echo             S T O R A G E   R E P O R T
 echo ===========================================================
 echo.
-echo  This shows exactly how much disk space your 
+echo  This shows exactly how much disk space your
 echo  Git history is using.
 echo.
 
@@ -5357,7 +5357,7 @@ echo ===========================================================
 echo            V I E W   I G N O R E   R U L E S
 echo ===========================================================
 echo.
-echo  These are the files and folders Git is currently 
+echo  These are the files and folders Git is currently
 echo  programmed to ignore.
 echo.
 
@@ -5382,7 +5382,7 @@ echo ===========================================================
 echo             Y O U R   S H O R T C U T S
 echo ===========================================================
 echo.
-echo  These are the custom 'Aliases' (shortcuts) you have 
+echo  These are the custom 'Aliases' (shortcuts) you have
 echo  configured in your Git settings.
 echo.
 
@@ -5404,7 +5404,7 @@ echo ===========================================================
 echo          F I X I N G   C O D E   C O N F L I C T S
 echo ===========================================================
 echo.
-echo  Git found overlapping changes. You need to decide which 
+echo  Git found overlapping changes. You need to decide which
 echo  version to keep for each file listed below.
 echo.
 
@@ -5518,7 +5518,7 @@ if "!CONF_ACTION!"=="3" (
     echo.
     set "CONF_EDIT="
     set /p "CONF_EDIT= Select: "
-    
+
     if "!CONF_EDIT!"=="1" (
         call git checkout --ours "!CONF_FILE!"
         call git add "!CONF_FILE!"
@@ -5580,8 +5580,8 @@ echo.
 echo ###########################################################
 echo  IMPORTANT: CLOUD OVERWRITE REQUESTED
 echo ###########################################################
-echo  If you are trying to remove sensitive data or fix a 
-echo  major mistake, a force-push is required to update 
+echo  If you are trying to remove sensitive data or fix a
+echo  major mistake, a force-push is required to update
 echo  the cloud version of this project.
 echo.
 echo  WARNING: This will replace the history on the server
